@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Ruin Friendships Game</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="playButtonString">Play</string>
+    <string name="optionsButtonString">Options</string>
+    <string name="title_activity_number_of_friends">NumberOfFriendsActivity</string>
+    <string name="newFriendsString">Select number of friends\nand hit go</string>
+    <string name="existingFriendsString">or\n\nselect existing friends</string>
+    <string name="TitleString">DRUNK\nSTONED\nOR STUPID</string>
+    <string name="title_activity_existing_friends">ExistingFriendsActivity</string>
+    <string name="title_activity_score">ScoreActivity</string>
+    <string name="title_activity_card">CardActivity</string>
+    <string name="title_activity_result">ResultActivity</string>
+    <string name="title_activity_options">OptionsActivity</string>
+    <string name="title_activity_add_friends">AddFriendsActivity</string>
+</resources>
