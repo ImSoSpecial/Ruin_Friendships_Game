@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class CardActivity extends Activity {
 
@@ -18,6 +19,7 @@ public class CardActivity extends Activity {
     ArrayList<Cards> cardsArrayList;
     ArrayList<Cards> trashCards;
     Random random;
+    final CounterClass timer = new CounterClass(180000, 1000);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +36,9 @@ public class CardActivity extends Activity {
         random = new Random();
         //randomize
         randomCard();
+        clockTextView.setText("00:03:00");
 
-        new CountDownTimer(60000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                clockTextView.setText("0:" +millisUntilFinished / 1000 + "");
-            }
-
-            public void onFinish() {
-                clockTextView.setText("done!");
-            }
-        }.start();
+        timer.start();
     }
 
     public void randomCard() {
@@ -58,8 +52,28 @@ public class CardActivity extends Activity {
     public void onStopClicked(View view) {
         Intent intent = new Intent(this, ScoreActivity.class);
         startActivity(intent);
+        timer.cancel();
     }
 
     //timer
+    public class CounterClass extends CountDownTimer {
+        public CounterClass(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
 
+        @Override
+        public void onTick(long millisUntilFinished) {
+            long millis = millisUntilFinished;
+            String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
+                    TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
+                    TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+
+            clockTextView.setText(hms);
+        }
+
+        @Override
+        public void onFinish() {
+
+        }
+    }
 }
