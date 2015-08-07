@@ -3,6 +3,7 @@ package jwake.ruinfriendshipsgame;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ public class CardActivity extends Activity {
 
     DataBaseForCards dbManager;
     TextView cardTextView;
+    TextView clockTextView;
     ArrayList<Cards> cardsArrayList;
     ArrayList<Cards> trashCards;
     Random random;
@@ -26,11 +28,23 @@ public class CardActivity extends Activity {
 
         cardsArrayList = new ArrayList<Cards>();
         trashCards = new ArrayList();
+        clockTextView = (TextView) findViewById(R.id.clockTextView);
 
         cardsArrayList = dbManager.getAllCardsArray();
         random = new Random();
         //randomize
         randomCard();
+
+        new CountDownTimer(60000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                clockTextView.setText("0:" +millisUntilFinished / 1000 + "");
+            }
+
+            public void onFinish() {
+                clockTextView.setText("done!");
+            }
+        }.start();
     }
 
     public void randomCard() {
